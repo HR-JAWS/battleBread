@@ -136,18 +136,7 @@ export default class SmartPlayer {
             })
         }
     }
-    // var row = svg.selectAll(".row")
-    //   .data(this.board)
-    //   .enter().append("g")
-    //     .attr("transform", (d, i) => `translate(0,${y(i)})`);
-    // row.selectAll(".cell")
-    //     .data(d => d)
-    //   .enter().append("rect")
-    //     .attr("x", (d, i) => x(i))
-    //     .attr("width", x.bandwidth())
-    //     .attr("height", y.bandwidth())
-    //     .style("fill", d => color(d))
-    //     .style("fill-opacity", '0.3');
+
     return this.board;
   }
 
@@ -225,24 +214,9 @@ export default class SmartPlayer {
         }
       }
     }
-    // svg.selectAll(".row")
-    //   .data([]).exit().remove();
-
-    // var row = svg.selectAll(".row")
-    //   .data(this.board)
-    //   .enter().append("g")
-    //     .attr("class", "row")
-    //     .attr("transform", (d, i) => `translate(0,${y(i)})`);
-    // row.selectAll(".cell")
-    //     .data(d => d)
-    //   .enter().append("rect")
-    //     .attr("x", (d, i) => x(i))
-    //     .attr("width", x.bandwidth())
-    //     .attr("height", y.bandwidth())
-    //     .style("fill", d => color(d))
-    //     .style("fill-opacity", '0.4')
 
     return {
+      board: this.board,
       prey: prey,
       callback: (response) => {
         console.log(response)

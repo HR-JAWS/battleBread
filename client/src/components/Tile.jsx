@@ -4,7 +4,7 @@ import randomInt from 'random-int';
 import { getInfo } from '../actions.js';
 import { connect } from 'react-redux';
 import { range } from 'lodash';
-import { guess, placeShip, removeBread } from '../actions.js';
+import { guess, placeShip, removeBread, visboard } from '../actions.js';
 
 import SmartPlayer from '../AI/ai';
 
@@ -48,8 +48,6 @@ const Tile = (props) => {
   if (props.options.guessed){
   console.log('props.options.guessed', props.options.guessed)
   }
-  // console.log('props', props)
-  // console.log('styles', styles)
 
   return (
     <div
@@ -60,20 +58,16 @@ const Tile = (props) => {
        * Invoke a guess action, iff this tile is on the opponent's board. Then, have the AI guess randomly.
        */
       onClick={() => {
-        {/* console.log(props) */}
         if(props.status === 'active') {
 
           if (props.player === 'p2' && !guessed && props.turn === 'p1') {
             guess(player, id);
             const hit = ai.hit();
-            guess('p1', hit.prey.toString(), hit.callback);
+            guess('p1', hit.prey.toString(), hit.callback, hit.board);
           }
         } else if (props.status === 'inactive' && props.player === 'p1') {
-          {/* console.log('game inactive', props) */}
-          {/* removeBread(); */}
           placeShip(props.options.id, props.selectedBread);
         }
-        //if player = p1 and board state is not ready, this is where logic for placing ships will go
       }}
     >
       <div className="card-text">

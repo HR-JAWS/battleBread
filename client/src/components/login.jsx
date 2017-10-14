@@ -1,29 +1,33 @@
-// This file is currently just a skeleton for a login page. 
+// This file is currently just a skeleton for a login page.
 // It is not being utilized at the moment.
-// We would like to eventually implement react router and a third 
+// We would like to eventually implement react router and a third
 // party login through the users Google or Facebook account
 
 
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => (
   <div>
-    <h2>Login</h2>
-    <form action="/login" method="post">
-    </form>
-    <div>
-      <label for="username">Username:</label>
-      <input id="username" type="text" name="username"></input>
+    <div className="jumbotron">
+      <img src="./images/BattleBreadLogo.png" height="75px" className="logoLogin" align="middle"/>
+      <form>
+        <div className="form-group">
+          <input type="text" className="form-control" placeholder="What is your name, toaster in chief"/>
+          <small id="emailHelp" className="form-text text-muted">Caution. The game is highly addictive</small>
+        </div>
+
+
+        <div className="btn-group btn-group-lg" role="group">
+            <button type="button" className="btn btn-secondary"><Link className='btn' to='/game'>Toast a machine</Link></button>
+            <button type="button" className="btn btn-secondary"><Link className='btn' to='/chat'>Toast a human</Link></button>
+        </div>
+      </form>
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input id="password" type="password" name="password"></input>
-    </div>
-    <div>
-      <input type="submit" value="Login"></input>
-    </div>
-    <div>
-      <a href="/signup">Login with your Google Account</a>
-    </div>
+
+
   </div>
+
 );
+
+export default Login;

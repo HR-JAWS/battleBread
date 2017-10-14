@@ -12,7 +12,7 @@ const url = 'http://localhost:3000';
 /**
  * Dispatches a createBoard action to the state via boardReducer
  * No params necessary.
- * Invoke to create a new board state from scratch. 
+ * Invoke to create a new board state from scratch.
  */
 export const createBoard = () => {
   store.dispatch({ type: 'createBoard' });
@@ -265,10 +265,10 @@ export const newGame = () => {
  * @param {string} player either 'p1' or 'p2'. Represents TARGET player's board.
  * @param {string} id the ID of the guessed tile, ex: '1,1' or '4,3'
  */
-export const guess = (player, id, callback) => {
+export const guess = (player, id, callback, visboard) => {
   store.dispatch({
-    type: 'guess', 
-    payload: { player, id, callback },
+    type: 'guess',
+    payload: { player, id, callback, visboard },
   });
   store.dispatch({ type: 'toggleTurn' });
   const { p1Pieces, p2Pieces } = store.getState().board;
@@ -287,6 +287,7 @@ export const guess = (player, id, callback) => {
   }
 };
 
+
 export const checkForReadyPlayer = (p1Ships) => {
   console.log('checking', p1Ships)
     //emit action to alert reducer to set game status to active props.status
@@ -299,7 +300,7 @@ export const checkForReadyPlayer = (p1Ships) => {
 
 export const updateBreadPlacementValue = (val) => {
   console.log('selected bread>>>>>', val)
-  store.dispatch({ 
+  store.dispatch({
     type: 'updateSelectedBread',
     payload: {selectedBread: val}
   });
@@ -322,7 +323,7 @@ export const placeShip = (coord, selectedBreadVal) => {
   var direction;
   var toChange;
   var val;
-  
+
   if(currentClicks === 0) {
     removeBread();
     if(y + selectedBreadVal > 8) {
@@ -382,7 +383,7 @@ export const placeShip = (coord, selectedBreadVal) => {
   console.log('checkoverlap result', checkOverlap(shipPieces))
   if (checkOverlap(shipPieces)){
     setPiece('p1', shipPieces, selectedBreadVal);
-    store.dispatch({ 
+    store.dispatch({
       type: 'updateShipCount',
       payload: {value: selectedBreadVal},
     });
@@ -406,3 +407,4 @@ export const checkOverlap = (shipPieces) =>{
   }
   return true;
 }
+

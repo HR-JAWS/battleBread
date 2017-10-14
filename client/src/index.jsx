@@ -1,12 +1,15 @@
 import React from 'react';
 import store from './store.js';
 import Board from './components/Board.jsx';
+import Login from './components/Login.jsx';
+import ChatRoom from './components/ChatRoom.jsx';
 import { render } from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { 
-  createBoard, 
-  setPiece, 
-  setChat, 
+import {
+  createBoard,
+  setPiece,
+  setChat,
   setRandomPieces,
   newUser,
   getUsers,
@@ -35,7 +38,7 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
-  
+
   componentWillMount() {
     // createBoard();
     newGame();
@@ -77,34 +80,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="container">
-
-        {/* <div className="header">
-          <div className="login">
-            <form action="/login" method="post">
-              <div>
-                <input id="username" type="text" name="username" placeholder="Username" onChange={this.handleUsername}></input>
-              </div>
-              <div>
-                <input id="password" type="password" name="password" placeholder="Password" onChange={this.handlePassword}></input>
-              </div>
-              <div>
-                <button type="button" value="Login" onClick={this.handleLogin}>Login</button>
-                <button type="button" value="Register" onClick={this.handleRegister}>Register</button>
-              </div>
-            </form>
-          </div>
-          <div className="logo">
-            <img src="../client/images/BattleBreadLogo.png" height="125px"></img>
-          </div>
-        </div> */}
-
-        <div className="container mainCenter">
+      <Router>
+        <div className="container">
           <Provider store={store}>
-            <Board />
+            <div className="container mainCenter">
+              <Route exact={true} path='/' component={Login} />
+              <Route exact={true} path='/game' component={Board} />
+              <Route exact={true} path='/chat' component={ChatRoom} />
+            </div>
           </Provider>
         </div>
-      </div>
+      </Router>
     );
   }
 }

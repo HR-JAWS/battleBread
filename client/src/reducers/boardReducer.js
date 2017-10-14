@@ -13,16 +13,26 @@ const newState = {
     2 : null,
     3 : null,
     4 : null,
-    5 : null    
+    5 : null
   },
   p2Ships: {
     2 : 2,
     3 : 3,
     4 : 4,
-    5 : 5    
+    5 : 5
   },
   selectedBread: null,
-  clickCount: 0
+  clickCount: 0,
+  visboard: [
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0]
+        ]
 };
 
 /**
@@ -113,7 +123,7 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
      //update state of color/displayimage property to display toast
      //decrement the count in ships object with key of value of ship hit
 
-    const { player, id, callback } = payload;
+    const { player, id, callback, visboard } = payload;
     console.log('payload',payload);
 
     const { turn } = state;
@@ -145,6 +155,7 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
 
 
     const newState = update(state, {
+      visboard: {$set: visboard},
       turn: {$set: (turn + 1)},
       [player]: {
         [id]: {
@@ -193,7 +204,7 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
       const thePiece = {};
       const numPieces = state[`${player}Pieces`]; //whole obj
       console.log('>>>>>>>>>>...', numPieces[shipVal])
-      
+
       piece.forEach(idString => {
         thePiece[idString] = update(
           state[player][idString],
@@ -243,7 +254,7 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
     // console.log('board', board)
     for ( var tile in newBoard ) {
 
-      
+
       // console.log('tile', board[tile])
       if (newBoard[tile].hasBread === selectedBread){
           console.log('got it>>>>>>>>>>>>>>', newBoard)
