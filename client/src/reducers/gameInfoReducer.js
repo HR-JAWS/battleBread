@@ -52,7 +52,7 @@ const gameInfoReducer = (state = { ...defaultGameInfo }, { type, payload } = act
      * @param { number } payload.pieces The updated piece count
      */
     const { player, pieces } = payload;
-    console.log('>>>>>>>pieces', pieces)
+    // console.log('>>>>>>>pieces', pieces)
 
     return update(state, {
       //set ships
@@ -65,6 +65,10 @@ const gameInfoReducer = (state = { ...defaultGameInfo }, { type, payload } = act
   } else if (type === 'setInfo') {
     // const { newInfo } = payload;
     return update(state, { $merge: payload });
+  } else if(type === 'updateGameReady') {
+    return update(state, {
+      status: {$set: 'active'}
+    })
   } else {
     return state;
   }

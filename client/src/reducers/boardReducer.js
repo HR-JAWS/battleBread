@@ -10,17 +10,19 @@ const newState = {
   p1Pieces:  0,
   p2Pieces: 0,
   p1Ships: {
-    2 : 2,
-    3 : 3,
-    4 : 4,
-    5 : 5
+    2 : null,
+    3 : null,
+    4 : null,
+    5 : null    
   },
   p2Ships: {
     2 : 2,
     3 : 3,
     4 : 4,
-    5 : 5
-  }
+    5 : 5    
+  },
+  selectedBread: null,
+  clickCount: 0
 };
 
 /**
@@ -124,7 +126,6 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
 
     if (hasBread !== false){
       console.log('ships count', ships[hasBread] )
-
       ships[hasBread] = ships[hasBread] - 1;
       console.log('post decrement', ships[hasBread] )
       //if ships[hasbread] === 0 cb(hasBread)
@@ -155,7 +156,6 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
       [`${player}Pieces`]: {$apply: () => (hasBread) ? numPieces - 1 : numPieces },
       [`${player}Ships`]: {$set: ships}
     });
-
 
     // newState[player][id] = tile;
     return newState;
@@ -193,6 +193,7 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
       const thePiece = {};
       const numPieces = state[`${player}Pieces`]; //whole obj
       console.log('>>>>>>>>>>...', numPieces[shipVal])
+      
       piece.forEach(idString => {
         thePiece[idString] = update(
           state[player][idString],
@@ -200,10 +201,59 @@ const boardReducer = (state = { ...newState }, { type, payload = {} } = action) 
         );
       });
 
-
       return update(state, {
         [player]: { $merge: thePiece },
         [`${player}Pieces`]: { $set: numPieces },
+      });
+  } else if (type === 'updateShipCount') {
+    let shipNum = payload.value;
+    var newShips = state['p1Ships'];
+    newShips[shipNum] = shipNum;
+    return update(state, {
+      // p1Ships: {$set: ({2 : 2, 3 : 3, 4 : 4, 5 : 5})}
+      p1Ships: {$set: newShips}
+    })
+  } else if(type === 'updateSelectedBread') {
+    return update(state, {
+      selectedBread: {$set: (payload.selectedBread)}
+    })
+  } else if(type === 'updateClickCount') {
+    //if payload === 'reset', set breadcount to 0
+    //CALL THIS WHEN NEW BREAD IS CLICKED
+    if(payload.val === 'reset') {
+      count = 0;
+    } else {
+      //if payload is null, do this stuff
+      var count = state['clickCount'];
+      count++
+      if (count > 4){
+        count = 0;
+      }
+    }
+    console.log('clickcounted>>>>>>>>>>>>', count);
+    return update(state, {
+      ['clickCount']: {$set: count}
+    });
+  }else if(type === 'removeBread') {
+    // debugger;
+    //get player1 board
+    let newBoard = state['p1'];
+    let selectedBread = state['selectedBread']
+    const thePiece = {};
+    // console.log('board', board)
+    for ( var tile in newBoard ) {
+
+      
+      // console.log('tile', board[tile])
+      if (newBoard[tile].hasBread === selectedBread){
+          console.log('got it>>>>>>>>>>>>>>', newBoard)
+          // update(state, {[newBoard] : {[tile] : { hasBread : {$apply: false}}}
+          thePiece[tile] = update(state['p1'][tile],
+          { hasBread: { $set: false }})
+      }
+    }
+      return update(state, {
+        ['p1']: { $merge: thePiece }
       });
   } else {
     /**

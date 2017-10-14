@@ -4,7 +4,7 @@ import randomInt from 'random-int';
 import { getInfo } from '../actions.js';
 import { connect } from 'react-redux';
 import { range } from 'lodash';
-import { guess } from '../actions.js';
+import { guess, placeShip, removeBread } from '../actions.js';
 
 import SmartPlayer from '../AI/ai';
 
@@ -31,6 +31,12 @@ const Tile = (props) => {
     height: size,
     }
 
+  if (props.player === 'p1' && props.options.hasBread) {
+    styles.backgroundColor = 'black';
+  }
+
+  // console.log(props, '>>>>>>>>>>>>>>>>')
+
   if (props.options.guessed === true && props.options.dispImage === false){
     styles.backgroundColor = 'red';
   }
@@ -54,12 +60,18 @@ const Tile = (props) => {
        * Invoke a guess action, iff this tile is on the opponent's board. Then, have the AI guess randomly.
        */
       onClick={() => {
-        console.log('turn', props.turn);
-        if (props.player === 'p2' && !guessed && props.turn === 'p1') {
-          guess(player, id);
-          const hit = ai.hit();
-          debugger
-          guess('p1', hit.prey.toString(), hit.callback);
+        {/* console.log(props) */}
+        if(props.status === 'active') {
+
+          if (props.player === 'p2' && !guessed && props.turn === 'p1') {
+            guess(player, id);
+            const hit = ai.hit();
+            guess('p1', hit.prey.toString(), hit.callback);
+          }
+        } else if (props.status === 'inactive' && props.player === 'p1') {
+          {/* console.log('game inactive', props) */}
+          {/* removeBread(); */}
+          placeShip(props.options.id, props.selectedBread);
         }
         //if player = p1 and board state is not ready, this is where logic for placing ships will go
       }}
