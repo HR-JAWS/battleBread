@@ -4,7 +4,6 @@ import { range } from 'lodash';
 import Tile from './Tile.jsx';
 import GameInfo from './GameInfo.jsx';
 import { getInfo, updatePieces, newGame, checkForReadyPlayer } from '../actions.js';
-import ChatInput from './ChatInput.jsx';
 import BreadBasket from './BreadBasket.jsx';
 import Vis from './Visualization.jsx';
 

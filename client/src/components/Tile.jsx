@@ -58,26 +58,16 @@ const Tile = (props) => {
        * Invoke a guess action, iff this tile is on the opponent's board. Then, have the AI guess randomly.
        */
       onClick={() => {
-        {/* console.log(props) */}
         if(props.status === 'active') {
 
           if (props.player === 'p2' && !guessed && props.turn === 'p1') {
             guess(player, id);
             const hit = ai.hit();
-            guess('p1', hit.prey.toString(), hit.callback);
+            guess('p1', hit.prey.toString(), hit.callback, hit.board);
           }
         } else if (props.status === 'inactive' && props.player === 'p1') {
-          {/* console.log('game inactive', props) */}
-          {/* removeBread(); */}
           placeShip(props.options.id, props.selectedBread);
-
-        if (props.player === 'p2' && !guessed && props.turn === 'p1') {
-          guess(player, id);
-          const hit = ai.hit();
-
-          guess('p1', hit.prey.toString(), hit.callback, hit.board);
         }
-        //if player = p1 and board state is not ready, this is where logic for placing ships will go
       }}
     >
       <div className="card-text">
