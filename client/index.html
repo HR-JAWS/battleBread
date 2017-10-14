@@ -9,60 +9,8 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   </head>
   <body>
-    <div id="vis"></div>
-    <div id="app" />
-
+    <div class="cover"></div>
+    <div id="app"></div>
     <script src="public/bundle.js" type="text/javascript"></script>
-    <!-- <script>
-      var margin = {top: 130, right: 100, bottom: 0, left: 80},
-      width = 384,
-      height = 384;
-
-      const board = [
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0]
-        ]
-
-      var svg = d3.select("#vis").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-          .style("position", 'absolute')
-          .style("margin-left", margin.left + "px")
-          .style("z-index", "100")
-        .append("g")
-          .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-      var x = d3.scaleBand()
-          .domain(d3.range(board.length))
-          .range([0, width]);
-
-      var y = d3.scaleBand()
-          .domain(d3.range(board.length))
-          .range([0, height]);
-
-      var color = d3.scaleSequential(d3.interpolateBlues)
-          .domain([0, 26]);
-
-      var row = svg.selectAll(".row")
-          .data(board)
-        .enter().append("g")
-          .attr("class", "row")
-          .attr("transform", (d, i) => `translate(0,${y(i)})`);
-      row.selectAll(".cell")
-          .data(d => d)
-        .enter().append("rect")
-          .attr("x", (d, i) => x(i))
-          .attr("width", x.bandwidth())
-          .attr("height", y.bandwidth())
-          .style("fill", d => color(d))
-          .style("fill-opacity", '0.7')
-
-    </script> -->
   </body>
 </html>
