@@ -4,6 +4,10 @@
 
 ## Team
 
+  - Jordan Poling
+  - Whitney Walker
+  - James Bonner
+  - Anuar Zhuken
   - Devon Yu
   - Stephanie Wong
   - Ephraim Glick
